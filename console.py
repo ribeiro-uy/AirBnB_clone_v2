@@ -13,7 +13,6 @@ from models.review import Review
 import re
 
 
-
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
@@ -121,50 +120,35 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        # Spliteamos los args y los guardamos en una variable
         command_syntax = args.split(" ")
-        # class_name = guardamos el indice del split
         class_name = command_syntax[0]
         parameters = command_syntax[1:]
-        # separar cada parametro en key y value --> new_dict = items.split("=")
-        # para poder asignar cada valor de la siguiente forma:
-        # new_instance.name = "nombre"
-        #  hacemos un for recorriendo el diccinario 
-        # asignamos new_instance.[key] = value
         parameters_dict = {}
         for items in parameters:
             parameter_split = items.split("=")
-            #acá hay que chequear el temp_split[1] para ver que type
-            #si es string
+            # check if it is string
             if parameter_split[1][0] == "\"":
                 underscore = re.compile('[_]')
-                #chequear los underscore
                 if underscore.search(parameter_split[1]):
                     replaced = parameter_split[1].replace("_", " ")
                     parameters_dict[parameter_split[0]] = replaced.strip('"')
                     continue
                 else:
-                    parameters_dict[parameter_split[0]] = parameter_split[1].strip('"')
-                # print("agrego string", parameters_dict)
+                    parameters_dict[parameter_split[0]] = \
+                                    parameter_split[1].strip('"')
                 continue
-            #si es float
             dot = re.compile('[.]')
+            # check if it is float
             if dot.search(parameter_split[1]):
                 parameters_dict[parameter_split[0]] = float(parameter_split[1])
-                # print("agrego un float", parameters_dict)
                 continue
-            #si es int = default case
+            # for interger
             else:
                 parameters_dict[parameter_split[0]] = int(parameter_split[1])
-                # print("default case", parameters_dict)
-        #chequeamos el indice de arg que corresponda
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[class_name]()
-        # acá deberíamos pasarle los argumentos al new_instance
-        #
-        #posiblemente un for que cheque de que tipo son
         for key, value in parameters_dict.items():
             setattr(new_instance, key, value)
         storage.save()
@@ -258,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage._FileStorage__objects.items():
                 print_list.append(str(v))
 
-        #print(print_list[0].strip('"'))
+        # print(print_list[0].strip('"'))
         print("[" + print_list[0].strip('"') + "]")
 
     def help_all(self):
@@ -365,6 +349,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
