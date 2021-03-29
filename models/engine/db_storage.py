@@ -4,9 +4,9 @@ This module defines new engine DBStorage
 """
 
 from os import getenv
-from sqlalchemy.orm import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import scoped_session
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.state import State
 from models.city import City
 from models.base_model import BaseModel, Base
@@ -28,14 +28,14 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        
+
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                                         .format(HBNB_MYSQL_USER,
                                         HBNB_MYSQL_PWD,
                                         HBNB_MYSQL_HOST,
                                         HBNB_MYSQL_DB),
                                         pool_pre_ping=True)
-        
+
         if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -66,13 +66,13 @@ class DBStorage:
             """
             self.__session.commit()
 
-        def delete(self, obj=None): 
+        def delete(self, obj=None):
             """
             delete from the current database session obj if not None
             """
             if obj is not None:
                 self.__session.delete(obj)
-            
+
         def reload(self):
             """create all tables in the database"""
             # ¿?
