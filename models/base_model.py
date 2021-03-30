@@ -80,8 +80,12 @@ class BaseModel:
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         dictionary["__class__"] = self.__class__.__name__
-        if "_sa_instance_state" in dictionary:
-            del dictionary["_sa_instance_state"]
+        to_delete = "_sa_instance_state"
+        for key, value in dictionary.items():
+            if to_delete == key:
+                del dictionary[key]
+        # if to_delete in dictonary:
+            # del dictonary[to_delete]
         return dictionary
 
 
