@@ -43,7 +43,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())  # quedó funcionando eso? yesss jaja
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-
+            models.storage.new(self)
         """
         if not kwargs:
             from models import storage
