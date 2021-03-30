@@ -40,9 +40,10 @@ class BaseModel:
                         else:
                             setattr(self, key, value)
         else:  # No arguments at the time of creation.
-            self.id = str(uuid.uuid4())  # quedó funcionando eso? yesss jaja
+            self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            print("base_model: entre en el else del init\n...............")
             models.storage.new(self)
         """
         if not kwargs:

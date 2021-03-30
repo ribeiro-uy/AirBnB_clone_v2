@@ -5,7 +5,7 @@ This module defines new engine DBStorage
 
 from os import getenv
 import sqlalchemy
-from sqlalchemy import create_engine
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.state import State
 from models.city import City
@@ -36,7 +36,6 @@ class DBStorage:
                                               HBNB_MYSQL_HOST,
                                               HBNB_MYSQL_DB),
                                       pool_pre_ping=True)
-
         if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -69,10 +68,12 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """create all tables in the database"""
+        """create all tables in the database
+        and create the current database session"""
         # ¿?
+
         Base.metadata.create_all(self.__engine)
         # call_session is the factory
         call_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(call_session)
-        self.__sesion = Session
+        self.__session = Session
