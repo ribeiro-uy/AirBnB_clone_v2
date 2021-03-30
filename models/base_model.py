@@ -7,10 +7,11 @@ from sqlalchemy import Column, String, DateTime
 import models
 
 
-if models.typestorage == "db": 
+if models.typestorage == "db":
     Base = declarative_base()
 else:
     Base = object
+
 
 class BaseModel:
     """A base class for all hbnb models"""
@@ -39,7 +40,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
-        """ 
+        """
         if not kwargs:
             from models import storage
             self.id = str(uuid.uuid4())
