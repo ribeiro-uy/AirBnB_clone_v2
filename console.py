@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -151,8 +151,10 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[class_name]()
         for key, value in parameters_dict.items():
             setattr(new_instance, key, value)
+        print("Guarda?1")
         storage.save()
         print(new_instance.id)
+        print("Guarda?2")
         storage.save()
 
     def help_create(self):
@@ -229,20 +231,24 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
+        print("Estos son los args: ", args)
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
+            print("Somos burros?: ", storage._FileStorage__objects)
             for k, v in storage._FileStorage__objects.items():
+                print("Entré al if de args")
+                print("Estos son los items: {}:{}".format(k, v))
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
             for k, v in storage._FileStorage__objects.items():
                 print_list.append(str(v))
 
-        # print(print_list[0].strip('"'))
+        # print(print_list)
+        print(print_list[0].strip('"'))
         print("[" + print_list[0].strip('"') + "]")
 
     def help_all(self):
