@@ -64,11 +64,17 @@ class DBStorage:
         """
         classes = {"City": City, "State": State, "User": User, "Place": Place, "Review": Review, "Amenity": Amenity}
         new_dict = {}
-        for clss in classes:
-            objs = self.__session.query(classes[clss]).all()
+        if cls is not None:
+            objs = self.__session.query(cls).all()
             for obj in objs:
                 key = obj.__class__.__name__ + '.' + obj.id
                 new_dict[key] = obj
+        else:
+            for clss in classes:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
         return (new_dict)
 
     def new(self, obj):
