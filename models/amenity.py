@@ -2,8 +2,10 @@
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
 import models
+import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+
 
 class Amenity(BaseModel, Base):
     """Amenities class"""
