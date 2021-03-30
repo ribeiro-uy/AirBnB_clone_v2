@@ -41,6 +41,10 @@ class DBStorage:
 
     def all(self, cls=None):
         """return a dictionary with all objects depending on class name"""
+
+        """
+        el nuestro
+
         if cls is not None:
             filter_dict = {}
             for objects in self.__session.query(cls):
@@ -53,6 +57,15 @@ class DBStorage:
                 for key, value in objects.items():
                     all_dict[key] = value
             return all_dict
+        """
+        classes = {"City": City, "State": State}
+        new_dict = {}
+        for clss in classes:
+            objs = self.__session.query(classes[clss]).all()
+            for obj in objs:
+                key = obj.__class__.__name__ + '.' + obj.id
+                new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         """"add the object to the current database session"""
