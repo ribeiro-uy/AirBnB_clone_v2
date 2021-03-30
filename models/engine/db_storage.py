@@ -45,7 +45,7 @@ class DBStorage:
 
     def all(self, cls=None):
         """return a dictionary with all objects depending on class name"""
-
+        print(cls)
         """
         el nuestro
 
