@@ -27,7 +27,6 @@ class State(BaseModel, Base):
             """
             new_list = []
             all_cities = models.storage.all(City)
-            print("Estas son todas las ciudades: ", all_cities)
             for city in all_cities.values():
                 if city.state_id == self.id:
                     new_list.append(city)
