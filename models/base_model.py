@@ -88,7 +88,6 @@ class BaseModel:
             # del dictonary[to_delete]
         return dictionary
 
-
     def delete(self):
         """delete the current instance from the storage"""
         storage.delete(self)

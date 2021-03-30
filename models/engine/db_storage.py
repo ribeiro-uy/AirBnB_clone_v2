@@ -61,7 +61,8 @@ class DBStorage:
                     all_dict[key] = value
             return all_dict
         """
-        classes = {"City": City, "State": State, "User": User, "Place": Place, "Review": Review, "Amenity": Amenity}
+        classes = {"City": City, "State": State, "User": User, "Place": Place,
+                   "Review": Review, "Amenity": Amenity}
         new_dict = {}
         if cls is not None:
             objs = self.__session.query(cls).all()
