@@ -45,9 +45,9 @@ class DBStorage:
 
     def all(self, cls=None):
         """return a dictionary with all objects depending on class name"""
-        """
-        el nuestro
 
+        """
+        el nuestro :D
         if cls is not None:
             filter_dict = {}
             for objects in self.__session.query(cls):
@@ -61,6 +61,7 @@ class DBStorage:
                     all_dict[key] = value
             return all_dict
         """
+
         classes = {"City": City, "State": State, "User": User, "Place": Place,
                    "Review": Review, "Amenity": Amenity}
         new_dict = {}
