@@ -1,41 +1,46 @@
 #!/usr/bin/python3
-"""test for review"""
+""" Unittest for Review """
 import unittest
 import os
-from os import getenv
 from models.review import Review
 from models.base_model import BaseModel
+import pep8
 
 
 class TestReview(unittest.TestCase):
-    """this will test the place class"""
-
+    """ testing class"""
     @classmethod
     def setUpClass(cls):
-        """set up for test"""
+        """test"""
         cls.rev = Review()
         cls.rev.place_id = "4321-dcba"
         cls.rev.user_id = "123-bca"
-        cls.rev.text = "The srongest in the Galaxy"
+        cls.rev.text = "the bestttt"
 
     @classmethod
     def teardown(cls):
-        """at the end of the test this will tear it down"""
+        """ delete """
         del cls.rev
 
     def tearDown(self):
-        """teardown"""
+        """ test file"""
         try:
             os.remove("file.json")
         except Exception:
             pass
 
+    def test_pep8_Review(self):
+        """ check pepopcho"""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/review.py'])
+        self.assertEqual(p.total_errors, 0, "pep8 errors here")
+
     def test_checking_for_docstring_Review(self):
-        """checking for docstrings"""
+        """check docs"""
         self.assertIsNotNone(Review.__doc__)
 
     def test_attributes_review(self):
-        """chekcing if review have attributes"""
+        """ test atributes """
         self.assertTrue('id' in self.rev.__dict__)
         self.assertTrue('created_at' in self.rev.__dict__)
         self.assertTrue('updated_at' in self.rev.__dict__)
@@ -44,24 +49,25 @@ class TestReview(unittest.TestCase):
         self.assertTrue('user_id' in self.rev.__dict__)
 
     def test_is_subclass_Review(self):
-        """test if review is subclass of BaseModel"""
+        """ test"""
         self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
 
     def test_attribute_types_Review(self):
-        """test attribute type for Review"""
+        """testing"""
         self.assertEqual(type(self.rev.text), str)
         self.assertEqual(type(self.rev.place_id), str)
         self.assertEqual(type(self.rev.user_id), str)
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == "db",
-                     "can't run if storage is db")
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
     def test_save_Review(self):
-        """test if the save works"""
+        """test"""
         self.rev.save()
         self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
     def test_to_dict_Review(self):
-        """test if dictionary works"""
+        """ test"""
         self.assertEqual('to_dict' in dir(self.rev), True)
 
 
