@@ -44,4 +44,4 @@ then
     sed -i "/server_name _/a $new_string" /etc/nginx/sites-available/default
 fi
 sudo service nginx restart
-sudo service ngnix reload
+sudo service nginx reload
