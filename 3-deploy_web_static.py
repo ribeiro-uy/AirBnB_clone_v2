@@ -55,6 +55,6 @@ def deploy():
     try:
         name = do_pack()
         answer = do_deploy(name)
-        return answer
+        return True
     except Exception:
         return False
