@@ -3,14 +3,13 @@
 Script that distributes an archive to your web servers,
 using the function do_deploy
 """
-
 from fabric.api import local, put, env, run
-from os import path 
+from os import path
 from datetime import datetime
 env.hosts = ['35.196.233.214', '35.237.121.210']
 env.user = "ubuntu"
 
-     
+
 def do_pack():
     """
     Compress before sending
@@ -25,6 +24,7 @@ def do_pack():
         return name
     except Exception:
         return None
+
 
 def do_deploy(archive_path):
     """function to distribute an archive to web server"""
@@ -44,8 +44,9 @@ def do_deploy(archive_path):
         run("ln -sf /data/web_static/releases/{}/ /data/web_static/current"
             .format(name))
         return True
-    except:
+    except Exception:
         return False
+
 
 def deploy():
     """
