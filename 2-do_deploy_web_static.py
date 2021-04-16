@@ -3,14 +3,14 @@
 to your web servers, using the function do_deploy"""
 
 from fabric.api import local, put, env, run
-from os import path
+import os
 env.hosts = ['35.196.233.214', '35.237.121.210']
 env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
     """function to distribute an archive to web server"""
-    if not (path.exists(archive_path)):
+    if not (os.path.exists(archive_path)):
         return False
     try:
         put(archive_path, "/tmp/")
