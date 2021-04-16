@@ -20,7 +20,8 @@ def do_pack():
     name = "web_static_" + datetime.strftime(datetime.now(),
                                              "%Y%m%d%H%M%S") + ".tgz"
     try:
-        local("tar -czvf ./versions/{} ./web_static" .format(name))
+        # sacamos la barra y el punto
+        local("tar -czvf versions/{} web_static" .format(name))
         return name
     except Exception:
         return None
@@ -41,8 +42,9 @@ def do_deploy(archive_path):
             /data/web_static/releases/{}/".format(name, name))
         run("rm -rf /data/web_static/releases/{}/web_static".format(name))
         run("rm -rf /data/web_static/current")
-        run("ln -sf /data/web_static/releases/{}/ /data/web_static/current"
+        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(name))
+        print("New version deployed!")
         return True
     except Exception:
         return False
