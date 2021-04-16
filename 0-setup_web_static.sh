@@ -16,7 +16,7 @@ echo "<html>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
-sudo chown -hR ubuntu:ubuntu /data/
+chown -R ubuntu:ubuntu /data/
 new_string="\\\n\tlocation /hbnb_static {\n\t\t alias /data/web_static/current/;\n\t}\n"
 check_exist=$(grep "hbnb_static" /etc/nginx/sites-available/default)
 if [[ -z $check_exist ]];
