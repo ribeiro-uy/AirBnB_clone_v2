@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Comment pal checker
 
-sudo apt update
+sudo apt -y update
 sudo apt -y install nginx
 mkdir -p /data
 mkdir -p /data/web_static/
