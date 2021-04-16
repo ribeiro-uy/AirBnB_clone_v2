@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Comment pal checker
-
-sudo apt update
-sudo apt -y install nginx
-mkdir -p /data/web_static/shared/
+# Script that sets up web servers for deployment of web_static
+apt-get -y update
+apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/shared/
 echo "<html>
   <head>
   </head>
@@ -14,6 +14,6 @@ echo "<html>
 </html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
-new_string="\\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n"
-sed -i "/server_name _/a $new_string" /etc/nginx/sites-available/default
-sudo service nginx restart
+sed -i "42i\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n" /etc/nginx/sites-available/default
+service nginx restart
+exit 0
