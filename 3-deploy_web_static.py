@@ -49,12 +49,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """
-    Full deployment
-    """
-    try:
-        name = do_pack()
-        answer = do_deploy(name)
-        return True
-    except Exception:
+    """ Function comment """
+    file_path = do_pack()
+    if file_path is None:
         return False
+    return do_deploy(file_path)
