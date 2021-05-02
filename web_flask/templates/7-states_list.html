@@ -1,13 +1,14 @@
-<!DOCTYPE HTML>
-<HTML LANG="EN">
-<HEAD>
-    <TITLE>MY WEBPAGE</TITLE>
-</HEAD>
-<BODY>
-  <ul id="navigation">
-    {% for item in navigation %}
-    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>States</H1>
+        <UL>
+          {% for item in states|sort(attribute='name') %}
+	  <li>{{ item.id|e }}: <B>{{ item.name|e }}</B></li>
+	  {% endfor %}
+        </UL>
+    </BODY>
+</HTML>
