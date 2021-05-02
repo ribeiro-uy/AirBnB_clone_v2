@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<HTML LANG="EN">
+<HEAD>
+    <TITLE>MY WEBPAGE</TITLE>
+</HEAD>
+<BODY>
+  <ul id="navigation">
+    {% for item in navigation %}
+    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
