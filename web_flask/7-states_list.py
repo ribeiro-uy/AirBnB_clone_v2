@@ -1,30 +1,28 @@
 #!/usr/bin/python3
+""" This script starts a web application. It takes requests
+    and generates a web page
 """
-Script that starts a Flask web application.
-"""
-from flask import Flask
-from flask import render_template
 from models import storage
+from flask import Flask, render_template
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/states_list')
-def states_list():
-    """
-    Route:
-    display “n is a number” only if n is an integer
+@app.route('/states_list', strict_slashes=False)
+def state_list():
+    """ This function loads the list of states
+    and creates the web page
     """
     states = storage.all('State')
     return render_template('7-states_list.html', states=states.values())
 
 
 @app.teardown_appcontext
-def close(self):
-    """
-    Remove the current SQLAlchemy Session
+def close_session(self):
+    """ This function closes a session
+    with the storage.close() method
     """
     storage.close()
 
+
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host='0.0.0.0')
